@@ -1,0 +1,24 @@
+{
+  "name": "rental-console",
+  "version": "1.0.0",
+  "description": "console application for renting car",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/hirzi/rental-console.git"
+  },
+  "keywords": [
+    "console",
+    "app",
+    "nodejs"
+  ],
+  "author": "hirzi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/hirzi/rental-console/issues"
+  },
+  "homepage": "https://gitlab.com/hirzi/rental-console#readme"
+}
