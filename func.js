@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const assert = require('assert');
-const moment = require('moment')
+const moment = require('moment');
+const cTable = require('console.table');
 
 mongoose.connect('mongodb://localhost:27017/rental-console', {
     useNewUrlParser: true,
@@ -33,9 +34,11 @@ const get_car_by_status = (date) => {
         }
     }, (err, cars) => {
         assert.equal(null, err);
-        console.info(cars);
+        console.log(cars)
+        const table = cTable.getTable(cars);
+        console.info(table);
         process.exit();
-    })
+    });
 }
 
 module.exports = { create_car, get_car_by_status };

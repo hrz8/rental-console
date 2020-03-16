@@ -23,6 +23,7 @@
   "homepage": "https://gitlab.com/hirzi/rental-console#readme",
   "dependencies": {
     "commander": "^5.0.0",
+    "console.table": "^0.10.0",
     "inquirer": "^7.1.0",
     "moment": "^2.24.0",
     "mongoose": "^5.9.4"
