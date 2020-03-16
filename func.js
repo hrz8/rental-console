@@ -54,10 +54,10 @@ const get_car_by_status = async (date) => {
 const search_car_by_registration_number =  async (rn) => {
     try {
         const car = await Car.findOne({registrationNumber: rn}).exec();
-        const carT = [{ RegistrationNumber: car.registrationNumber,
-            Color: car.color,
-            Status: car.status,
-            Customer: car.customer }]
+        const carT = [{ 
+            RegistrationNumber: car.registrationNumber,
+            Color: car.color
+         }]
         const table = cTable.getTable(carT);
         console.info(table);
         process.exit();
