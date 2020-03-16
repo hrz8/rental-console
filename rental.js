@@ -1,5 +1,5 @@
 const { program } = require('commander');
-const { create_car } = require('./func');
+const { create_car, get_car_by_status } = require('./func');
 
 program
     .version('0.0.1')
@@ -11,6 +11,13 @@ program
     .description('add new car')
     .action((registrationNumber, color) => {
         create_car({ registrationNumber, color });
+    });
+
+program
+    .command('status <date>')
+    .description('fetch data by date')
+    .action((date) => {
+        get_car_by_status(date);
     });
 
 program.parse(process.argv);
