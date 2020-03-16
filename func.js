@@ -70,12 +70,12 @@ const search_car_by_registration_number =  async (rn) => {
 const reserve = async (rn, customerName, dateRent) => {
     try {
         const car = await Car.findOne({registrationNumber: rn}).exec();
-        if (!car.dateRent.includes(dateRent)) {
+        if (!car.customer.includes(dateRent)) {
             await Car.updateOne({registrationNumber: rn}, {customer: car.customer + dateRent + "(" + customerName + ")", dateRent: dateRent}).exec();
             console.info(`Reserved ${rn} to ${customerName} on ${dateRent}`)
         }
         else {
-            console.log('already reserved')
+            console.log('Already reserved')
         }
         process.exit();
     }

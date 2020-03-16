@@ -34,4 +34,11 @@ program
         reserve(rn, customerName, dateRent);
     });
 
+program
+    .command('rent <rn> <customerName> <dateRent>')
+    .description('fetch data by registration number')
+    .action((rn, customerName, dateRent) => {
+        reserve(rn, customerName, dateRent);
+    });
+
 program.parse(process.argv);
