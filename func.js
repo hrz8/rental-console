@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const assert = require('assert');
-const moment = require('moment');
 const cTable = require('console.table');
 
 mongoose.connect('mongodb://localhost:27017/rental-console', {
@@ -12,9 +10,7 @@ mongoose.connect('mongodb://localhost:27017/rental-console', {
 const carSchema = new mongoose.Schema({
     registrationNumber: { type: String, unique: true },
     color: String,
-    // status: { type: String, default: 'Free' },
-    customer: { type: String, default: '' },
-    dateRent: { type: String, default: '' },
+    customer: { type: String, default: '' }
 }, { timestamps: true });
 const Car = mongoose.model('Car', carSchema);
 
@@ -30,22 +26,20 @@ const create_car = async (car) => {
 };
 
 const get_car_by_status = async (date) => {
-    const momentObj = moment(new Date(date));
     try {
-        // const cars = await Car.find({
-        //     createdAt: {
-        //         $gte: momentObj.toDate(),
-        //         $lte: moment(momentObj).endOf('day').toDate()
-        //     }
-        // }).exec();
         const cars = await Car.find({}).exec();
         const carsq = cars.map(item => {
-            const status = item.dateRent === date ? 'Rented' : 'Free';
+            let status = 'Free', customerName = '';
+            if (item.customer.includes(date)) {
+                status = 'Rented';
+                const customerNameArr = item.customer.match(new RegExp(`.*${date}(\\(\\w+\\)).*`));
+                customerName = customerNameArr[1].substring(1, customerNameArr[1].length-1)
+            }
             return {
                 RegistrationNumber: item.registrationNumber,
                 Color: item.color,
                 Status: status,
-                Customer: item.customer
+                Customer: customerName
             }
         })
         const table = cTable.getTable(carsq);
@@ -71,7 +65,23 @@ const search_car_by_registration_number =  async (rn) => {
     catch(err) {
         console.error(err);
     }
-    
 }
 
-module.exports = { create_car, get_car_by_status, search_car_by_registration_number };
+const reserve = async (rn, customerName, dateRent) => {
+    try {
+        const car = await Car.findOne({registrationNumber: rn}).exec();
+        if (!car.dateRent.includes(dateRent)) {
+            await Car.updateOne({registrationNumber: rn}, {customer: car.customer + dateRent + "(" + customerName + ")", dateRent: dateRent}).exec();
+            console.info(`Reserved ${rn} to ${customerName} on ${dateRent}`)
+        }
+        else {
+            console.log('already reserved')
+        }
+        process.exit();
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+module.exports = { create_car, get_car_by_status, search_car_by_registration_number, reserve };

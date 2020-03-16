@@ -1,5 +1,5 @@
 const { program } = require('commander');
-const { create_car, get_car_by_status, search_car_by_registration_number } = require('./func');
+const { create_car, get_car_by_status, search_car_by_registration_number, reserve } = require('./func');
 
 program
     .version('0.0.1')
@@ -25,6 +25,13 @@ program
     .description('fetch data by registration number')
     .action((rn) => {
         search_car_by_registration_number(rn);
+    });
+
+program
+    .command('reserve <rn> <customerName> <dateRent>')
+    .description('fetch data by registration number')
+    .action((rn, customerName, dateRent) => {
+        reserve(rn, customerName, dateRent);
     });
 
 program.parse(process.argv);
