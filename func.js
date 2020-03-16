@@ -17,7 +17,8 @@ const Car = mongoose.model('Car', carSchema);
 const create_car = (car) => {
     Car.create(car, (err) => {
         assert.equal(null, err);
-        console.info('New car added');
+        console.info(`Car ${car.registrationNumber} ${car.color} saved`);
+        process.exit();
     });
 };
 
