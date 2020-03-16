@@ -75,7 +75,7 @@ const reserve = async (rn, customerName, dateRent) => {
             console.info(`Reserved ${rn} to ${customerName} on ${dateRent}`)
         }
         else {
-            console.log('Already reserved')
+            console.info('Already reserved')
         }
         process.exit();
     }
@@ -84,4 +84,19 @@ const reserve = async (rn, customerName, dateRent) => {
     }
 }
 
-module.exports = { create_car, get_car_by_status, search_car_by_registration_number, reserve };
+const remove = async (rn) => {
+    try {
+        const car = await Car.deleteOne({registrationNumber: rn}).exec();
+        if (car) {
+            console.info('Successfully deleted');
+        }
+        else {
+            console.info('Failed to delete');
+        }
+    }
+    catch(err) {
+        console.error(err);
+    }
+}
+
+module.exports = { remove, create_car, get_car_by_status, search_car_by_registration_number, reserve };
