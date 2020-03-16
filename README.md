@@ -39,6 +39,8 @@ $ node rental status 2020-03-16
 ``` bash
 # Create new reservation for specified car on specified date
 $ node rental reserve BB-3421 Budi 2020-05-01
+# OR
+$ node rental rent BB-3421 Budi 2020-05-01
 ```
 
 ``` bash
