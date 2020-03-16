@@ -34,8 +34,13 @@ const get_car_by_status = (date) => {
         }
     }, (err, cars) => {
         assert.equal(null, err);
-        console.log(cars)
-        const table = cTable.getTable(cars);
+        carsq = cars.map(item => ({
+            RegistrationNumber: item.registrationNumber,
+            Color: item.color,
+            Status: item.status,
+            Customer: item.customer
+        }))
+        const table = cTable.getTable(carsq);
         console.info(table);
         process.exit();
     });
