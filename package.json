@@ -25,7 +25,7 @@
     "commander": "^5.0.0",
     "console.table": "^0.10.0",
     "inquirer": "^7.1.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.9.4"
   },
   "devDependencies": {
